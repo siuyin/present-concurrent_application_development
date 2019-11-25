@@ -1,0 +1,57 @@
+Concurrent Application Development
+with Go functions, channels and contexts
+20 Nov 2019
+
+Loh Siu Yin
+Technology Consultant, Beyond Broadcast LLP
+siuyin@beyondbroadcast.com
+
+* Our world is concurrent
+
+* Each person acts independently
+
+- Each process (person) acts independently.
+- Process actions based on messages.
+- Messages received over channels.
+- Messages that may have timing or requests specific contexts.
+- Messages that may have functions (directions) to perform actions.
+
+* Real-world organisation, ABC
+
+- We (ABC) deliver packages.
+- ABC accept orders.
+- Orders have a sender address, destination address, package pickup address and associated contractual terms.
+
+How do we design ABC given that ABC will operate globally?
+
+Orders, packages and destinations can located anywhere on Earth.
+
+* Organisation / Application Design
+
+* Mission Statement / System Context
+
+ABC:
+
+- delivers packages
+- based on orders
+- to destinations globally.
+
+SysF:
+
+- delivers files
+- based on messages
+- to accessible network locations.
+
+* Locations / System Deployables
+
+ABC has:
+
+- a web presence to accept orders
+- distribution hubs in Asia, US and Europe
+- access to a fleet of package delivery vehicles
+
+SysF has:
+
+- a file delivery order event stream
+- a set of deployables (initially a monolith but structured to be decomposable to microservices as needed)
+- access to a communication network 
