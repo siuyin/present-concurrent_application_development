@@ -50,8 +50,40 @@ ABC has:
 - distribution hubs in Asia, US and Europe
 - access to a fleet of package delivery vehicles
 
+Hard: Location, location, location.
+
 SysF has:
 
 - a file delivery order event stream
 - a set of deployables (initially a monolith but structured to be decomposable to microservices as needed)
 - access to a communication network 
+
+Simple: Start with minimum viable set, designed for extensibility and scale.
+
+* Organisation Chart / Module Map
+
+Each of ABC's locations has an organisation chart:
+
+- with named divisions, departments, sections, units
+- having clearly defined goals / purposes
+- and an initial reporting structure that can change over time
+- all serving to meet the Locations' mission, which is a sub-set of the whole Organisation's mission 
+
+Each of SysF's deployables has a module map:
+
+- with named module(s)
+- having clearly defined functions
+- and an initial message graph that can change over time
+- all serving to meet the Deployable's function which is a sub-set of the System's function.
+
+* Computer Science
+
+- C4 model for visualising software architecture: Context (Mission Statement), Containers (Location), Components (Org Chart), Code
+
+- Dijkstra's Structured Programming: Top-down decomposition
+
+- Object Oriented Design: Thinking about objects and their interactions (messages)
+
+- Domain Driven Design: Context, Domain (subject area), Model (descriptions of the Domain), Ubiquitous Language (model communications)
+
+- Unix philosophy: do one thing well, everything is a file, favours composability. 
