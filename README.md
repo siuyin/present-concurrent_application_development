@@ -7,6 +7,8 @@ based on sharing memory (state) by communicating.
 
 Communcation is by Go channels and timing contexts.
 
+Go package pcad stands for Present Concurrent Application Design.
+
 ```
 docker run -it --name present -v godata:/home/siuyin/go -p 3999:3999 siuyin/go:dev
 go get golang.org/x/tools/cmd/present

@@ -87,3 +87,57 @@ Each of SysF's deployables has a module map:
 - Domain Driven Design: Context, Domain (subject area), Model (descriptions of the Domain), Ubiquitous Language (model communications)
 
 - Unix philosophy: do one thing well, everything is a file, favours composability. 
+
+My thesis: Think big-picture, define deployables, build modules with simple composable functions. Entire modules or deployables can be retired if no longer relevant.
+
+* SysF Deployables
+
+SysF will have two deployables (containers in C4 modelling terms):
+
+- A Go binary named sysf.
+sysf will be a single binary comprising of modules (organisation departments) that communicate mainly via a message broker (think email) and occasionally via request-response (think telephone calls).
+
+- A message broker: NATS-Streaming.
+NATS-Streaming is a persistent event log that guarantees at least once delivery (think writing on a shared white-board).
+NATS-Streaming also includes NATS messaging which is fire and forget (think non-registered paper mail).
+
+* sysf Go binary: modules
+
+*order*: Package order has Receive, Validate and Send functions operating on types order.ID and order.Event .
+
+*user*: Package user has types user.ID and user.Event and method Authn .
+authner: Interface authner has an Authn method returning a user.ID and error. Authn() (user.ID, error) 
+
+*delv*: Package delv (short for delivery) has types delv.ID and delv.Event and method Copy .
+copier: Interface copier has a Copy method returning an error. Copy(src, dest string) error
+
+*web*: Package web provides the web front-end to SysF. It is the main user interface for capturing orders and providing delivery status.
+
+* sysf Go binary: module map
+
+.image sysf_module_map.png 
+
+* Let's start coding
+
+* Create package folders
+
+  mkdir -p order
+  mkdir -p user
+  mkdir -p delv
+  mkdir -p web
+  mkdir -p cmd/sysf
+
+* Deploy NATS-Streaming
+
+Get NATS-Streaming:
+
+.link https://nats.io/download
+
+  cd /tmp
+  wget https://github.com/nats-io/nats-streaming-server/releases/download/v0.16.2/nats-streaming-server-v0.16.2-linux-amd64.zip
+  unzip nats-streaming-server-v0.16.2-linux-amd64.zip
+  mv nats-streaming-server ~/go/bin
+
+Open a new terminal session
+
+  ~/go/bin/nats-streaming-server

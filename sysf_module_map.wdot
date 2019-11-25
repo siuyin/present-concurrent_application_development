@@ -1,0 +1,12 @@
+:head LR "sysf module map\n2019-11-25 siuyin@beyondbroadcast.com" {
+order
+delv 
+user 
+web "web\napplication"
+
+web<-order "orderCreated,\norderInvalid"
+web<-user "userAuthenticated"
+order->delv "orderCreated"
+web<-delv "orderCompleted,\norderFailed"
+
+}
