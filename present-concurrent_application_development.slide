@@ -127,6 +127,39 @@ copier: Interface copier has a Copy method returning an error. Copy(src, dest st
   mkdir -p web
   mkdir -p cmd/sysf
 
+* cmd/sysf/main.go:
+
+.code cmd/sysf/main.go /10 OMIT/,/20 OMIT/
+
+All the xxStart()s are goroutines running in the background.
+
+* cmd/sysf/main.go, stanConnect:
+
+.code cmd/sysf/main.go /20 OMIT/,/30 OMIT/
+
+stanConnect examines its environment to get its arguments.
+It exits with a fatal error if it cannot connect to the messaging server.
+
+* cmd/sysf/web.go, webstart:
+
+.code cmd/sysf/web.go /10 OMIT/,/20 OMIT/
+
+Two handers are installed for the "/" and "/order" paths respectively.
+
+* Package web, web/web.go, RootHandler:
+
+.code web/web.go /10 OMIT/,/20 OMIT/
+
+web.RootHandler implicitly statisfies http.Handler because it has the ServeHTTP(http.ResponseWriter, *http.Request) method.
+
+web.RootHandler serves the user-defined message, Msg.
+
+* Package web, web/web.go, OrderHandler:
+
+.code web/web.go /20 OMIT/,/30 OMIT/
+
+web.OrderHandler has an embedded message server connection and a subject (topic) to publish to.
+
 * Deploy NATS-Streaming
 
 Get NATS-Streaming:
@@ -141,3 +174,10 @@ Get NATS-Streaming:
 Open a new terminal session
 
   ~/go/bin/nats-streaming-server
+
+Demo:
+
+  go run cmd/sysf/*.go
+  curl localhost:8080/
+  curl localhost:8080/order
+
